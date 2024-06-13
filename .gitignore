@@ -1,6 +1,7 @@
 # compiled output
-/dist
-.show_deal_client_copy/node_modules
+*/node_modules*
+*/dist*
+*/dist_client**
 /build
 
 # Logs
