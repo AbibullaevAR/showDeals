@@ -8,8 +8,8 @@ RUN npm install
 
 RUN npm run build
 
-RUN dir
+RUN ls
 
 EXPOSE 3000
 
-CMD ["node", "dist"]
+CMD ["npm", "start:prod"]
