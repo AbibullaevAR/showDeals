@@ -4,9 +4,7 @@ WORKDIR /app
 
 COPY ./ ./
 
-RUN cd ./show_deal_client
-
-RUN ls
+RUN cd show_deal_client/
 
 RUN npm install
 
