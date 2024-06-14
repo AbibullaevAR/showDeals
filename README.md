@@ -1,6 +1,4 @@
 # show_deal
 
-## Project available by URL
-```
-https://showdeals-production.up.railway.app/
-```
+## Project available by [here](https://showdeals-production.up.railway.app/)
+
