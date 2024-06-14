@@ -2,7 +2,17 @@ FROM node:21-alpine
 
 WORKDIR /app
 
-COPY ./show_deal_backend/ ./
+COPY ./ ./
+
+RUN cd ./show_deal_client
+
+RUN npm install
+
+RUN npm run build
+
+RUN cd ../
+
+RUN cd ./show_deal_backend
 
 RUN npm install
 
