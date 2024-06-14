@@ -4,15 +4,15 @@ WORKDIR /app
 
 COPY ./ ./
 
-RUN CD ./show_deal_client/
+RUN cd /show_deal_client/
 
 RUN npm install
 
 RUN npm run build
 
-RUN CD ../
+RUN cd ../
 
-RUN CD ./show_deal_backend
+RUN cd /show_deal_backend
 
 RUN npm install
 
