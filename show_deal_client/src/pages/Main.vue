@@ -35,16 +35,21 @@ const leadColumns: Column[] = [
 ];
 
 const leads = ref<Lead[]>([]);
+const isLoadingLeads = ref(true);
 
 onMounted(async () => {
+  isLoadingLeads.value = true;
   leads.value = await getLeads();
+  isLoadingLeads.value = false;
 })
 
 watch(leadsSearchModel, async () => {
   const shouldSearch = leadsSearchModel.value.length > 3 || leadsSearchModel.value.length === 0;
 
   if (shouldSearch) {
+    isLoadingLeads.value = true;
     leads.value = await getLeads(leadsSearchModel.value)
+    isLoadingLeads.value = false;
   }
 })
 
@@ -53,28 +58,30 @@ watch(leadsSearchModel, async () => {
 <template>
   <main>
     <LeadsSearch v-model="leadsSearchModel"></LeadsSearch>
-    <a-table :columns="leadColumns" :data-source="getLeadRows(leads)" :expand-column-width="100">
-      <template #bodyCell="{ column, record }">
-        <div v-if="column.key === 'status'" :style="{ backgroundColor: record.status.color }">
-          {{ record.status.name }}
-        </div>
-        <div v-if="column.key === 'responsibleUser'">
-          {{ record.responsibleUser.name }}
-        </div>
-      </template>
-      <template #expandedRowRender="{ record }">
-        <template v-if="record.contacts.length">
-          <div v-for="contact in record.contacts" :key="contact.name" class="contact">
-            <div>{{ contact.name }}</div>
-            <div>{{ contact.email }}</div>
-            <div>{{ contact.phone }}</div>
+    <a-spin :spinning="isLoadingLeads">
+      <a-table :columns="leadColumns" :data-source="getLeadRows(leads)" :expand-column-width="100">
+        <template #bodyCell="{ column, record }">
+          <div v-if="column.key === 'status'" :style="{ backgroundColor: record.status.color }">
+            {{ record.status.name }}
+          </div>
+          <div v-if="column.key === 'responsibleUser'">
+            {{ record.responsibleUser.name }}
           </div>
         </template>
-        <template v-else>
-          <span>Нет контактов</span>
+        <template #expandedRowRender="{ record }">
+          <template v-if="record.contacts.length">
+            <div v-for="contact in record.contacts" :key="contact.name" class="contact">
+              <div>{{ contact.name }}</div>
+              <div>{{ contact.email }}</div>
+              <div>{{ contact.phone }}</div>
+            </div>
+          </template>
+          <template v-else>
+            <span>Нет контактов</span>
+          </template>
         </template>
-      </template>
-    </a-table>
+      </a-table>
+    </a-spin>
   </main>
 </template>
 
