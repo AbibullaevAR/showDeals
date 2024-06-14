@@ -8,6 +8,7 @@ RUN npm install
 
 RUN npm run build
 
+RUN dir
 
 EXPOSE 3000
 
