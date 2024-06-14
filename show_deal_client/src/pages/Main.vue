@@ -33,6 +33,7 @@ const leadColumns: Column[] = [
   { title: 'Ответственный', key: 'responsibleUser' },
   { title: 'Дата создания', dataIndex: 'createDate', key: 'createDate' },
 ];
+
 const leads = ref<Lead[]>([]);
 
 onMounted(async () => {
