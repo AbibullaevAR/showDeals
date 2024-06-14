@@ -6,6 +6,8 @@ COPY ./ ./
 
 RUN cd ./show_deal_client
 
+RUN ls
+
 RUN npm install
 
 RUN npm run build
